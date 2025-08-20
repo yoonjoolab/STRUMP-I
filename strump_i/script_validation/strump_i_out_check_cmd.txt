@@ -1,0 +1,16 @@
+
+
+# check dir if target file exists
+find . -type d -exec test -e "{}/Interaction_builded_template_minim_peptide_chain_modified_AC.fxout" ';' -print
+find . -type d -exec test -e "{}/Interaction_builded_template_minim_peptide_chain_modified_AC.fxout" ';' -print > ~/output_generated.txt
+
+# check dir if target file not exists
+find . -type d '!' -exec test -e "{}/Interaction_builded_template_minim_peptide_chain_modified_AC.fxout" ';' -print
+find . -type d '!' -exec test -e "{}/Interaction_builded_template_minim_peptide_chain_modified_AC.fxout" ';' -print > ~/output_not_generated.txt
+
+# shell moving.
+for file in $(cat ~/output_generated.txt); do mv ./scripts/run_sh/${file}.sh ./scripts/run_completed/; done
+
+# results moving
+for dir in $(cat ./runned_check/output_generated_1st.txt); do mv ./output/${dir} ./runned_output/${dir}; done
+

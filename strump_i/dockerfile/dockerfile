@@ -1,0 +1,32 @@
+# Use the official Ubuntu 22.04 base image
+FROM ubuntu:22.04
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    gcc \
+    g++ \
+    make \
+    python3 \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Upgrade pip
+RUN pip3 install --upgrade pip
+
+# Create directories for FoldX and Tinker
+RUN mkdir /foldx && mkdir /tinker && mkdir /strump_i
+
+# Copy the FoldX, Tinker, and 'strump_i' directories from the host into the Docker container
+COPY ./foldx /app/foldx
+COPY ./tinker /app/tinker
+COPY ./strump_i /app/strump_i
+
+# Set the working directory to '/strump_i'
+WORKDIR /app/strump_i
+
+# Install any Python dependencies (update this with actual dependencies as necessary)
+RUN pip3 install numpy pandas matplotlib tqdm seaborn scikit-learn lightgbm psutil freesasa
+
+# Update permissions
+RUN chmod -R 777 /app

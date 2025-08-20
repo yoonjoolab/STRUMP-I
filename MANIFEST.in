@@ -1,0 +1,4 @@
+recursive-include strump_i/reference *
+recursive-include strump_i/functions *.py
+include strump_i/README.md
+global-exclude *.pyc __pycache__ .DS_Store ._*
